@@ -20,6 +20,11 @@ def submit(reddit, subreddit, url, title):
     sub.submit(title=title, url=url)
 
 
+def get_feeds(url):
+    feed = feedparser.parse(url)
+    return [{'url': x.link, 'title': x.title} for x in feed.entries]
+
+
 def main():
     r = praw.Reddit(user_agent='mozalien by /u/nigelbabu')
     login(r)
