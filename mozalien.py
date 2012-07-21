@@ -1,14 +1,18 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8-*-
 import praw
 import json
+import feedparser
 
-def login(reddit):
+def configure():
     with open('settings.json') as f:
         json_data = f.read()
-        print json_data
         settings = json.loads(json_data)
-        reddit.login(settings['username'], settings['password'])
+        return settings
+    return None
+
+def login(reddit, settings):
+    reddit.login(settings['username'], settings['password'])
 
 
 def submit(reddit, subreddit, url, title):
