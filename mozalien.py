@@ -15,9 +15,9 @@ def login(reddit, settings):
     reddit.login(settings['username'], settings['password'])
 
 
-def submit(reddit, subreddit, url, title):
-    sub = r.get_subreddit(subreddit)
-    sub.submit(title=title, url=url)
+def submit(subreddit, feed):
+    submission = subreddit.submit(title=feed['title'], url=feed['url'])
+    print submission.short_link
 
 
 def get_feeds(url):
@@ -26,10 +26,16 @@ def get_feeds(url):
 
 
 def main():
-    r = praw.Reddit(user_agent='mozalien by /u/nigelbabu')
-    login(r)
-    submissions = r.get_subreddit('mozillamemes').get_hot(limit=5)
-    print [str(x) for x in submissions]
+    settings = configure()
+    r = praw.Reddit(user_agent='mozalien by /u/%s' % settings['username'])
+    sub = r.get_subreddit(settings['subreddit'])
+    login(r, settings)
+    feeds = get_feeds(settings['feed_url'])
+    feeds.reverse()
+    for feed in feeds:
+        if not len([x for x in r.info(feed['url'])]):
+            print feed['title']
+            submit(sub, feed)
 
 
 if __name__ == '__main__':
