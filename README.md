@@ -7,8 +7,10 @@ Dependencies
 ===========
 
 Praw
+
     pip install praw
     
-feedparser/
+feedparser
+
     pip install feedparser
     
