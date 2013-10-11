@@ -3,14 +3,7 @@ Mozalien
 
 This is a generic bot meant to post from RSS to reddit.
 
-Dependencies
+Install Dependencies
 ===========
 
-Praw
-
-    pip install praw
-    
-feedparser
-
-    pip install feedparser
-    
+    pip install -r requirements.txt
